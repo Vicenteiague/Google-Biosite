@@ -162,37 +162,37 @@ export default function App() {
             <div className={`flex-1 h-px ${isDarkMode ? 'bg-zinc-800' : 'bg-gray-200'}`}></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <SocialCard 
-              icon={<Instagram className="text-pink-600" />}
+              imageUrl="https://i.ibb.co/MD4M5gMm/Instagram-4.jpg"
               title="Instagram"
               link="https://instagram.com/startmktlocal"
               isDarkMode={isDarkMode}
             />
             <SocialCard 
-              icon={<MapPin className="text-red-500" />}
+              imageUrl="https://i.ibb.co/whzzbk0m/localiza-o-2.jpg"
               title="Nossa Localização"
               link="https://maps.app.goo.gl/H2ryHrEQQBdfYkTw5"
               isDarkMode={isDarkMode}
             />
             <SocialCard 
-              icon={<Globe className="text-blue-500" />}
+              imageUrl="https://i.ibb.co/8gP7wrkd/website.jpg"
               title="Nosso Site"
               link="https://www.startmktlocal.com.br/"
               isDarkMode={isDarkMode}
             />
             <SocialCard 
-              icon={<Search className="text-yellow-500" />}
+              imageUrl="https://i.ibb.co/352SPTmk/images-2.jpg"
               title="Perfil no Google"
               link="https://g.co/kgs/e9wwCVY"
               isDarkMode={isDarkMode}
             />
             <SocialCard 
-              icon={<Star className="text-orange-400" />}
+              imageUrl="https://i.ibb.co/rfxQFLt0/Avalie-nosso-local.jpg"
               title="Nos avalie no Google"
               link="https://g.page/r/CRV6qIFyKdSEEBM/review"
               isDarkMode={isDarkMode}
-              className="sm:col-span-2"
+              className="col-span-2"
             />
           </div>
         </section>
@@ -294,7 +294,7 @@ export default function App() {
   );
 }
 
-function SocialCard({ icon, title, link, isDarkMode, className = "" }: any) {
+function SocialCard({ icon, title, link, isDarkMode, imageUrl, className = "" }: any) {
   return (
     <motion.a
       href={link}
@@ -302,20 +302,40 @@ function SocialCard({ icon, title, link, isDarkMode, className = "" }: any) {
       rel="noopener noreferrer"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className={`group flex items-center p-5 rounded-2xl border transition-all ${className} ${
+      className={`group flex flex-col rounded-2xl border transition-all overflow-hidden ${className} ${
         isDarkMode 
           ? 'bg-zinc-900/50 border-zinc-800 hover:bg-zinc-900 hover:border-zinc-700' 
           : 'bg-white border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200'
       }`}
     >
-      <div className={`p-3 rounded-xl mr-4 ${isDarkMode ? 'bg-zinc-800' : 'bg-gray-50'}`}>
-        {icon}
-      </div>
-      <div className="flex-1">
-        <h3 className="font-bold text-sm tracking-tight mb-1">{title}</h3>
-        <span className="text-[10px] uppercase font-black opacity-30 tracking-widest group-hover:opacity-100 group-hover:text-green-500 transition-all">Visitar Link</span>
-      </div>
-      <ExternalLink size={16} className="opacity-0 group-hover:opacity-30 transition-opacity" />
+      {imageUrl ? (
+        <div className="w-full aspect-square overflow-hidden relative">
+          <img 
+            src={imageUrl} 
+            alt={title} 
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors"></div>
+        </div>
+      ) : (
+        <div className="flex items-center p-5">
+          <div className={`p-3 rounded-xl mr-4 ${isDarkMode ? 'bg-zinc-800' : 'bg-gray-50'}`}>
+            {icon}
+          </div>
+          <div className="flex-1">
+            <h3 className="font-bold text-sm tracking-tight mb-1">{title}</h3>
+            <span className="text-[10px] uppercase font-black opacity-30 tracking-widest group-hover:opacity-100 group-hover:text-green-500 transition-all">Visitar Link</span>
+          </div>
+          <ExternalLink size={16} className="opacity-0 group-hover:opacity-30 transition-opacity" />
+        </div>
+      )}
+      
+      {imageUrl && (
+        <div className="p-3 text-center border-t border-inherit">
+           <h3 className="font-bold text-xs tracking-tight">{title}</h3>
+        </div>
+      )}
     </motion.a>
   );
 }
