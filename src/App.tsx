@@ -84,17 +84,20 @@ export default function App() {
           className="text-center mb-12"
         >
           <motion.div variants={itemVariants} className="mb-6 flex justify-center">
-            <div className={`w-32 h-32 rounded-3xl flex items-center justify-center p-1 border-2 overflow-hidden relative shadow-2xl transition-transform hover:scale-105 active:scale-95 ${isDarkMode ? 'border-zinc-700 bg-zinc-900' : 'border-gray-200 bg-white'}`}>
-               <div className="absolute inset-0 bg-gradient-to-tr from-green-500/20 to-blue-500/20 z-0"></div>
-               {/* Logo Estilizada em SVG/CSS */}
-               <div className="relative z-10 flex flex-col items-center justify-center text-center">
-                  <div className="bg-gradient-to-tr from-green-500 to-blue-600 p-3 rounded-2xl shadow-lg mb-2">
-                    <TrendingUp size={42} className="text-white" />
-                  </div>
-                  <div className="flex flex-col -space-y-1">
-                    <span className={`text-[12px] font-black uppercase tracking-tighter ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>Start Mkt</span>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-green-500">Local</span>
-                  </div>
+            <div className={`w-36 h-36 rounded-3xl flex items-center justify-center p-1 border-2 overflow-hidden relative shadow-2xl transition-transform hover:scale-105 active:scale-95 ${isDarkMode ? 'border-zinc-700 bg-zinc-900' : 'border-gray-200 bg-white'}`}>
+               <img 
+                 src="https://i.ibb.co/BH236jNr/IMG-20260315-111831-078.webp" 
+                 alt="Start Mkt Local Logo" 
+                 className="w-full h-full object-contain relative z-10 p-2"
+                 onError={(e) => {
+                   (e.target as HTMLImageElement).style.display = 'none';
+                   (e.target as HTMLImageElement).parentElement?.querySelector('.logo-fallback')?.classList.remove('hidden');
+                 }}
+               />
+               {/* Logo Fallback - Profissional caso a imagem falhe */}
+               <div className="logo-fallback absolute inset-0 hidden flex flex-col items-center justify-center bg-gradient-to-tr from-green-500 to-blue-600 text-white p-4">
+                  <TrendingUp size={48} className="mb-1" />
+                  <span className="text-[10px] font-black uppercase tracking-tighter leading-none text-center">Start Mkt<br/>Local</span>
                </div>
             </div>
           </motion.div>
